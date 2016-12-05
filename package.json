@@ -12,14 +12,18 @@
     "test:tdd": "npm run test -- --auto-watch --no-single-run"
   },
   "author": {
-    "name": "Emily Aviva Kapor-Mater",
-    "email": "emily@emilyaviva.com",
-    "url": "https://www.emilyaviva.com/"
+    "name": "John Hearn",
+    "email": "the.bastard@john-the-bastard.com",
+    "url": "http://twitter.com/johnthebastard"
   },
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.15.3",
+    "date-fns": "^1.11.2",
+    "node-sass": "^3.13.0",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-dom": "^15.4.1",
+    "sass-loader": "^4.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
