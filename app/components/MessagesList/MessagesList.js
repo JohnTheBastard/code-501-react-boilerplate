@@ -30,6 +30,13 @@ class MessagesList extends React.Component {
            console.error(res)
          })
   }
+  deleteMessage (id) {
+    const oldMessages = this.state.messagesList
+    const newMessages = oldMessages.filter((o) => o.id != id)
+    this.setState({
+      messageList: newMessages
+    })
+  }
 
   componentDidMount(){
     this.getMessages()

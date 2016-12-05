@@ -8,6 +8,7 @@ const MessageBox = ({ author, message, date }) =>
            alt={author.name} />
       <h4>{author.name}</h4>
       <p>{format(date, 'D MMM. YYYY, h:mm a')}</p>
+      <button >Delete</button>
     </div>
     <div className='message-body'>
       <p>{message}</p>
