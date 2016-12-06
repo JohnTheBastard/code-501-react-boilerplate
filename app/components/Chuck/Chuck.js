@@ -5,8 +5,10 @@ class Chuck extends React.Component {
   render(){
     return  (
       <main>
+        <div>
         <Joke />
 
+        </div>
       </main>
     )
   }
