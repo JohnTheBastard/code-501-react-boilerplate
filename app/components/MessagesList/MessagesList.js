@@ -32,9 +32,9 @@ class MessagesList extends React.Component {
   }
   deleteMessage (id) {
     const oldMessages = this.state.messagesList
-    const newMessages = oldMessages.filter((o) => o.id != id)
+    const newMessages = oldMessages.filter((o) => o.id !== id)
     this.setState({
-      messageList: newMessages
+      messagesList: newMessages
     })
   }
 
@@ -54,14 +54,19 @@ class MessagesList extends React.Component {
                 author={message.author}
                 message={message.content}
                 date={message.updated}
+                onDelete={this.deleteMessage.bind(this, message.id)}
               />
             )}
           </ul>
         </div>
       )
     } else {
-      return <div>No Messages</div>
-    }
+      return (
+      <div>
+        <h4>No Messages</h4>
+        <button onClick={this.getMessages.bind(this)}>I cannot abide empty arrays.</button>
+      </div>
+    )}
   }
 }
 

@@ -3,7 +3,6 @@ import Bio from '../Bio/Bio'
 import BooksList from '../BooksList/BooksList'
 import MessagesList from '../MessagesList/MessagesList'
 
-//const.porttrait = require('../../img/martiniGuy.png')
 
 class HomePage extends React.Component {
     render () {
@@ -11,8 +10,6 @@ class HomePage extends React.Component {
           <main>
             <MessagesList />
             <Bio
-                //imgSrc=[]
-                //imgAlt=[]
                 myName="John Hearn"
                 age={38}
                 pronoun={{
