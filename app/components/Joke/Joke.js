@@ -7,32 +7,54 @@ class Joke extends React.Component {
     super(props)
     this.state = {
       text: '',
-      category: ''
+      id: '',
+      metadata: []
     }
   }
 
-  getJoke () {
-    let url = 'https://api.icndb.com/jokes/random'
-    if (this.state.category !== '') {
-      url += `?limitTo=${this.state.category}`
-    }
+  componentWillMount() {
+    let url = 'https://api.icndb.com/jokes/count'
+    let jokeCount;
     axios.get(url)
-         .then((res) => {
-           console.log('\n\nYOU GOT A RESPONSE!\n\n')
-           console.log(res)
-           //const oldJoke = this.state.text
-           const newJoke = res.data.value.joke
-           let category = res.data.value.categories[0]
-           category === undefined ? category : ''
+         .then((res) =>{
+            jokeCount = res.data.value
+            console.log('\n\nWILL MOUNT RESPONSE!\n\n')
             this.setState({
-              text: newJoke,
-              category: category
+                metadata: [...Array(jokeCount).keys()].map(i => "")
             })
          })
          .catch((res) => {
-           console.log('\n\nYOU GOT AN ERROR!\n\n')
+            console.error(res)
+         })
+  }
+
+  getJoke() {
+    let url = 'https://api.icndb.com/jokes/random'
+    axios.get(url)
+         .then((res) => {
+           console.log('\n\nYOU GOT A RESPONSE!\n\n')
+           console.error(this.state.metadata)
+           console.error(res.data.value.id)
+           //const oldJoke = this.state.text
+           const newJoke = res.data.value.joke
+           const newID = res.data.value.id
+            this.setState({
+              text: newJoke,
+              id: newID
+            })
+         })
+         .catch((res) => {
            console.error(res)
          })
+  }
+
+  rateJoke (id, value) {
+    const oldMetadata = this.state.metadata
+    const newMetadata = oldMetadata.map((o, i) => o = i === id ? value : o )
+    this.setState({
+      metadata: newMetadata
+    })
+    this.getJoke()
   }
 
   componentDidMount(){
@@ -41,8 +63,9 @@ class Joke extends React.Component {
   render(){
     return (
       <div className='Joke'>
-        <p>Hello, world!</p>
         <p>{this.state.text}</p>
+        <button onClick={this.rateJoke.bind(this, this.state.id, true)}>Thumbs Up</button> &nbsp;
+        <button onClick={this.rateJoke.bind(this, this.state.id, false)}>Thumbs Down</button>
       </div>
     )
   }

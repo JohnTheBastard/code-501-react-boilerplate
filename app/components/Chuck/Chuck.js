@@ -6,6 +6,7 @@ class Chuck extends React.Component {
     return  (
       <main>
         <div>
+        <h1>Jokes From Chuck Norris</h1>
         <Joke />
 
         </div>
