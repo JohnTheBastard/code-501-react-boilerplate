@@ -2,12 +2,14 @@ import React from 'react'
 import Bio from '../Bio/Bio'
 import BooksList from '../BooksList/BooksList'
 import MessagesList from '../MessagesList/MessagesList'
+import PostToSlack from '../PostToSlack/PostToSlack'
 
 
 class HomePage extends React.Component {
     render () {
         return  (
           <main>
+            <PostToSlack />
             <MessagesList />
             <Bio
                 myName="John Hearn"

@@ -8,6 +8,7 @@ class Joke extends React.Component {
     this.state = {
       text: '',
       id: '',
+      category: '',
       metadata: []
     }
   }
@@ -30,12 +31,14 @@ class Joke extends React.Component {
 
   getJoke() {
     let url = 'https://api.icndb.com/jokes/random'
+    const category = this.state.category;
+    if(category !== ''){
+      const categoryEndpoint = `?limitTo=[${this.state.category}]`
+      url += categoryEndpoint
+    }
     axios.get(url)
          .then((res) => {
-           console.log('\n\nYOU GOT A RESPONSE!\n\n')
-           console.error(this.state.metadata)
            console.error(res.data.value.id)
-           //const oldJoke = this.state.text
            const newJoke = res.data.value.joke
            const newID = res.data.value.id
             this.setState({
@@ -51,6 +54,7 @@ class Joke extends React.Component {
   rateJoke (id, value) {
     const oldMetadata = this.state.metadata
     const newMetadata = oldMetadata.map((o, i) => o = i === id ? value : o )
+    console.error(newMetadata)
     this.setState({
       metadata: newMetadata
     })
@@ -60,13 +64,32 @@ class Joke extends React.Component {
   componentDidMount(){
     this.getJoke()
   }
+
+  handleSubmit(e){
+    e.preventDefault()
+    this.getJoke()
+  }
+
   render(){
     return (
       <div className='Joke'>
         <p>{this.state.text}</p>
         <button onClick={this.rateJoke.bind(this, this.state.id, true)}>Thumbs Up</button> &nbsp;
         <button onClick={this.rateJoke.bind(this, this.state.id, false)}>Thumbs Down</button>
-      </div>
+
+      <p>Optional: limit to category {this.state.category}</p>
+      <form onSubmit={this.handleSubmit.bind(this)}>
+
+      <select label='category' value={this.state.category}
+              onChange={(e) => this.setState({category: e.target.value})} >
+       <option value=''>all</option>
+       <option value='explicit'>explicit</option>
+       <option value='nerdy'>nerdy</option>
+       </select>&nbsp;
+       <input type='submit' />
+       </form>
+       </div>
+
     )
   }
 }
